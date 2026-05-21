@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Justice Law – Konsultasi Hukum Pidana</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       ROOT VARIABLES & BASE
+    ============================================= */
+    :root {
+      --black:    #0d0d0d;
+      --dark:     #111111;
+      --dark2:    #1a1a1a;
+      --dark3:    #222222;
+      --gold:     #d4af37;
+      --gold-lt:  #e8cc6a;
+      --gold-dk:  #a88a1e;
+      --white:    #ffffff;
+      --grey:     #999999;
+      --grey-lt:  #cccccc;
+      --font-head: 'Playfair Display', serif;
+      --font-body: 'Poppins', sans-serif;
+      --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--grey-lt);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    h1,h2,h3,h4,h5 { font-family: var(--font-head); color: var(--white); }
+
+    .gold { color: var(--gold); }
+    .serif { font-family: var(--font-head); }
+
+    /* =============================================
+       SCROLL REVEAL ANIMATION
+    ============================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* =============================================
+       NAVBAR
+    ============================================= */
+    #mainNav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 22px 0;
+      transition: var(--transition);
+      background: transparent;
+    }
+    #mainNav.scrolled {
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(12px);
+      padding: 12px 0;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.6);
+      border-bottom: 1px solid rgba(212,175,55,0.15);
+    }
+    .navbar-brand {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold) !important;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .navbar-brand span { color: var(--white); }
+    .nav-link {
+      color: rgba(255,255,255,0.8) !important;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px !important;
+      transition: var(--transition);
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+    .nav-link:hover { color: var(--gold) !important; }
+    .nav-link:hover::after { width: 60%; }
+    .navbar-toggler { border-color: rgba(212,175,55,0.5); }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28212,175,55,0.9%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    #home {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1589578527966-fdac0f44566c?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFydSUyMHNhamF8ZW58MHx8MHx8fDA%3D');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* Overlay gradient */
+    #home::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.82) 100%);
+      z-index: 1;
+    }
+    /* Gold horizontal line glow at bottom of hero */
+    #home::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      z-index: 2;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(212,175,55,0.35);
+      padding: 6px 20px;
+      margin-bottom: 28px;
+      animation: fadeDown 1s ease both;
+    }
+    .hero-title {
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 22px;
+      animation: fadeDown 1s 0.2s ease both;
+    }
+    .hero-title .accent { color: var(--gold); }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.7);
+      max-width: 580px;
+      margin: 0 auto 38px;
+      font-weight: 300;
+      animation: fadeDown 1s 0.4s ease both;
+    }
+    .hero-btns { animation: fadeDown 1s 0.6s ease both; }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--black);
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 2px solid var(--gold);
+      padding: 14px 32px;
+      border-radius: 0;
+      transition: var(--transition);
+      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+    }
+    .btn-gold:hover {
+      background: transparent;
+      color: var(--gold);
+      box-shadow: 0 0 30px rgba(212,175,55,0.5);
+    }
+    .btn-outline-gold {
+      background: transparent;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 2px solid rgba(212,175,55,0.5);
+      padding: 14px 32px;
+      border-radius: 0;
+      transition: var(--transition);
+    }
+    .btn-outline-gold:hover {
+      border-color: var(--gold);
+      background: rgba(212,175,55,0.1);
+      color: var(--gold);
+      box-shadow: 0 0 25px rgba(212,175,55,0.25);
+    }
+
+    /* Stats bar */
+    .hero-stats {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 4;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(212,175,55,0.2);
+      animation: fadeUp 1s 1s ease both;
+    }
+    .stat-item {
+      padding: 22px 44px;
+      text-align: center;
+      border-right: 1px solid rgba(212,175,55,0.12);
+      flex: 1;
+      max-width: 220px;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 4px;
+    }
+
+    /* Scroll down */
+    .scroll-down {
+      position: absolute;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: bounce 2s infinite;
+    }
+    .scroll-down span {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .scroll-down i { color: var(--gold); font-size: 1.1rem; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =============================================
+       SECTION COMMON
+    ============================================= */
+    section { padding: 110px 0; }
+    .section-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 0 auto 20px;
+    }
+    .section-divider.left { margin: 0 0 20px; }
+    .lead-text {
+      font-size: 1rem;
+      color: var(--grey);
+      max-width: 560px;
+      font-weight: 300;
+    }
+
+    /* Gold line decorator */
+    .gold-line {
+      display: inline-block;
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    /* =============================================
+       ABOUT SECTION
+    ============================================= */
+    #about { background: var(--dark); }
+    .about-img-wrap {
+      position: relative;
+      border: 1px solid rgba(212,175,55,0.2);
+    }
+    .about-img-wrap img {
+      width: 100%;
+      display: block;
+      filter: grayscale(30%) brightness(0.9);
+      transition: var(--transition);
+    }
+    .about-img-wrap:hover img { filter: grayscale(0%) brightness(1); }
+    .about-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: -12px; left: -12px;
+      right: 12px; bottom: 12px;
+      border: 1px solid rgba(212,175,55,0.25);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      background: var(--gold);
+      color: var(--black);
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-align: center;
+      line-height: 1.3;
+      z-index: 2;
+      box-shadow: 0 0 30px rgba(212,175,55,0.4);
+    }
+    .about-badge .big { font-size: 2rem; display: block; line-height: 1; }
+    .about-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212,175,55,0.12);
+      border-radius: 2px;
+      padding: 20px;
+      transition: var(--transition);
+    }
+    .about-card:hover {
+      background: rgba(212,175,55,0.06);
+      border-color: rgba(212,175,55,0.3);
+      transform: translateY(-4px);
+    }
+    .about-card i { color: var(--gold); font-size: 1.4rem; margin-bottom: 10px; }
+    .about-card h6 { font-family: var(--font-head); color: var(--white); margin-bottom: 6px; }
+    .about-card p { font-size: 0.85rem; color: var(--grey); margin: 0; }
+
+    /* =============================================
+       SERVICES SECTION
+    ============================================= */
+    #services { background: var(--black); }
+    .service-card {
+      background: var(--dark2);
+      border: 1px solid rgba(212,175,55,0.1);
+      border-radius: 2px;
+      padding: 36px 28px;
+      transition: var(--transition);
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 0;
+      background: var(--gold);
+      transition: height 0.4s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212,175,55,0.35);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.1);
+    }
+    .service-card:hover::before { height: 100%; }
+    .service-icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.25);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+      transition: var(--transition);
+    }
+    .service-card:hover .service-icon {
+      background: rgba(212,175,55,0.2);
+      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+    }
+    .service-icon i { color: var(--gold); font-size: 1.4rem; }
+    .service-card h5 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .service-card p { font-size: 0.85rem; color: var(--grey); margin: 0; line-height: 1.7; }
+
+    /* =============================================
+       TEAM SECTION
+    ============================================= */
+    #team { background: var(--dark); }
+    .team-card {
+      background: var(--dark2);
+      border: 1px solid rgba(212,175,55,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212,175,55,0.35);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .team-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .team-img img {
+      width: 100%; height: 280px;
+      object-fit: cover;
+      object-position: top;
+      filter: grayscale(20%);
+      transition: var(--transition);
+    }
+    .team-card:hover .team-img img {
+      transform: scale(1.05);
+      filter: grayscale(0%);
+    }
+    .team-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px 20px 16px;
+      display: flex; gap: 12px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: var(--transition);
+    }
+    .team-card:hover .team-overlay { opacity: 1; transform: translateY(0); }
+    .team-overlay a {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(212,175,55,0.2);
+      border: 1px solid rgba(212,175,55,0.4);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .team-overlay a:hover { background: var(--gold); color: var(--black); }
+    .team-info {
+      padding: 22px;
+      border-top: 1px solid rgba(212,175,55,0.1);
+    }
+    .team-info h5 { font-size: 1.05rem; margin-bottom: 4px; }
+    .team-info .role {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .team-info p { font-size: 0.82rem; color: var(--grey); margin: 0; }
+
+    /* =============================================
+       TESTIMONIALS SECTION
+    ============================================= */
+    #testimonials { background: var(--black); overflow: hidden; }
+    .testimonial-track-wrap { overflow: hidden; position: relative; }
+    .testimonial-track {
+      display: flex;
+      gap: 28px;
+      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .testi-card {
+      min-width: calc(33.333% - 19px);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212,175,55,0.12);
+      border-radius: 2px;
+      padding: 34px 28px;
+      backdrop-filter: blur(4px);
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .testi-card:hover {
+      border-color: rgba(212,175,55,0.3);
+      background: rgba(212,175,55,0.04);
+      transform: translateY(-4px);
+    }
+    .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 14px; }
+    .testi-text {
+      font-size: 0.9rem;
+      color: var(--grey-lt);
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 22px;
+    }
+    .testi-text::before { content: '\201C'; font-size: 2rem; color: var(--gold); line-height: 0; vertical-align: -0.5em; margin-right: 4px; }
+    .testi-author { display: flex; align-items: center; gap: 14px; }
+    .testi-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(212,175,55,0.3);
+    }
+    .testi-name { font-family: var(--font-head); color: var(--white); font-size: 0.95rem; }
+    .testi-role { font-size: 0.72rem; letter-spacing: 1px; color: var(--grey); text-transform: uppercase; }
+    .testi-controls {
+      display: flex; gap: 12px; justify-content: center;
+      margin-top: 40px;
+    }
+    .testi-btn {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(212,175,55,0.35);
+      background: transparent;
+      color: var(--gold);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .testi-btn:hover { background: var(--gold); color: var(--black); }
+
+    /* =============================================
+       CONTACT SECTION
+    ============================================= */
+    #contact { background: var(--dark); }
+    .contact-info-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      margin-bottom: 28px;
+    }
+    .contact-icon {
+      width: 46px; height: 46px; flex-shrink: 0;
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+    .contact-info-item h6 { font-family: var(--font-head); color: var(--white); margin-bottom: 4px; font-size: 0.95rem; }
+    .contact-info-item p { font-size: 0.85rem; color: var(--grey); margin: 0; }
+
+    /* Form */
+    .form-wrap {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(212,175,55,0.12);
+      padding: 44px 38px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--grey); margin-bottom: 8px; }
+    .form-control, .form-select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      border-radius: 0;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .form-control:focus, .form-select:focus {
+      background: rgba(212,175,55,0.06);
+      border-color: rgba(212,175,55,0.5);
+      color: var(--white);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+    }
+    .form-control::placeholder { color: rgba(255,255,255,0.3); }
+    .form-select option { background: var(--dark2); color: var(--white); }
+    .form-control.is-invalid { border-color: #dc3545; }
+
+    /* Maps */
+    .map-wrap {
+      border: 1px solid rgba(212,175,55,0.15);
+      overflow: hidden;
+      margin-top: 50px;
+    }
+    .map-wrap iframe { display: block; filter: grayscale(80%) invert(10%); }
+
+    /* Success alert */
+    #successAlert {
+      display: none;
+      background: rgba(212,175,55,0.1);
+      border: 1px solid rgba(212,175,55,0.4);
+      color: var(--gold-lt);
+      border-radius: 0;
+      padding: 16px 22px;
+      margin-top: 16px;
+      font-size: 0.9rem;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: #080808;
+      border-top: 1px solid rgba(212,175,55,0.15);
+      padding: 70px 0 30px;
+    }
+    .footer-brand {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    .footer-brand span { color: var(--white); }
+    .footer-desc { font-size: 0.85rem; color: var(--grey); max-width: 280px; }
+    .footer-title {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    .footer-link {
+      display: block;
+      font-size: 0.83rem;
+      color: var(--grey);
+      text-decoration: none;
+      padding: 5px 0;
+      transition: var(--transition);
+    }
+    .footer-link:hover { color: var(--gold); padding-left: 6px; }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--grey);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      margin-right: 8px;
+    }
+    .footer-social a:hover { background: var(--gold); border-color: var(--gold); color: var(--black); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      margin-top: 50px;
+      padding-top: 24px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+
+    /* =============================================
+       WHATSAPP FLOATING BUTTON
+    ============================================= */
+    .wa-float {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      z-index: 999;
+      width: 56px; height: 56px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 1.6rem;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: var(--transition);
+      animation: pulse 2.5s infinite;
+    }
+    .wa-float:hover { transform: scale(1.1); color: white; box-shadow: 0 6px 28px rgba(37,211,102,0.6); }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+      50%       { box-shadow: 0 4px 30px rgba(37,211,102,0.7), 0 0 0 8px rgba(37,211,102,0.1); }
+    }
+
+    /* =============================================
+       LOADING SPINNER (form submit)
+    ============================================= */
+    .spinner-border-sm { width: 1rem; height: 1rem; }
+
+    /* =============================================
+       RESPONSIVE TWEAKS
+    ============================================= */
+    @media (max-width: 768px) {
+      .stat-item { padding: 16px 18px; }
+      .stat-number { font-size: 1.5rem; }
+      .testi-card { min-width: calc(100% - 0px); }
+      .form-wrap { padding: 30px 22px; }
+      .about-badge { width: 90px; height: 90px; font-size: 0.72rem; right: -10px; bottom: -10px; }
+      .about-badge .big { font-size: 1.5rem; }
+      section { padding: 80px 0; }
+    }
+    @media (max-width: 576px) {
+      .hero-stats { flex-wrap: wrap; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(212,175,55,0.1); min-width: 50%; }
+      .footer-bottom { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================
+       NAVBAR
+  ======================================== -->
+  <nav id="mainNav" class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="#home">JUSTICE <span>LAW</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto gap-1">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================
+       HOME / HERO SECTION
+  ======================================== -->
+  <section id="home">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Firma Hukum Pidana Terpercaya</div>
+      <h1 class="hero-title">
+        Membela Hak Anda<br />Dengan <span class="accent">Integritas</span>
+      </h1>
+      <p class="hero-sub">
+        Firma konsultasi hukum pidana terpercaya untuk solusi hukum yang profesional dan berkeadilan.
+      </p>
+      <div class="hero-btns d-flex gap-3 justify-content-center flex-wrap">
+        <a href="#contact" class="btn btn-gold">Konsultasi Sekarang</a>
+        <a href="#services" class="btn btn-outline-gold">Pelajari Layanan</a>
+      </div>
+    </div>
+
+    <!-- Scroll down indicator -->
+    <div class="scroll-down">
+      <span>Scroll</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number" data-target="500">0</div>
+        <div class="stat-label">Kasus Terselesaikan</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="15">0</div>
+        <div class="stat-label">Tahun Pengalaman</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="98">0</div>
+        <div class="stat-label">% Tingkat Kemenangan</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="12">0</div>
+        <div class="stat-label">Pengacara Ahli</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       ABOUT SECTION
+  ======================================== -->
+  <section id="about">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <!-- Image -->
+        <div class="col-lg-5 reveal-left">
+          <div class="about-img-wrap">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80" alt="Firma Hukum" />
+            <div class="about-badge">
+              <span class="big">15+</span>
+              Tahun<br />Berpengalaman
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="col-lg-7 reveal-right">
+          <div class="section-badge"><span class="gold-line"></span> Tentang Kami</div>
+          <h2 class="section-title">Keadilan Adalah komitmen kami<br />
+          "Fiat Justitia Ruat Caelum"</h2>
+          <div class="section-divider left"></div>
+          <p class="lead-text mb-4">
+            Justice Law adalah firma konsultasi hukum pidana dengan pengalaman lebih dari 15 tahun memberikan layanan hukum terbaik. Kami berkomitmen untuk menegakkan keadilan dengan integritas penuh, mendampingi klien dari konsultasi awal hingga putusan akhir.
+          </p>
+          <p class="lead-text mb-5" style="font-size:0.9rem;">
+            Didirikan oleh para pengacara berpengalaman di bidang hukum pidana, kami memahami bahwa setiap kasus adalah perjuangan nyata yang membutuhkan strategi tepat dan pembelaan optimal.
+          </p>
+
+          <!-- Cards -->
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="about-card">
+                <i class="fas fa-balance-scale"></i>
+                <h6>Visi</h6>
+                <p>Menjadi firma hukum pidana terpercaya dan terdepan di Indonesia.</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="about-card">
+                <i class="fas fa-handshake"></i>
+                <h6>Misi</h6>
+                <p>Memberikan pembelaan terbaik dengan dedikasi penuh dan etika profesional.</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="about-card">
+                <i class="fas fa-shield-alt"></i>
+                <h6>Integritas</h6>
+                <p>Bekerja dengan kejujuran dan transparansi kepada setiap klien.</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="about-card">
+                <i class="fas fa-trophy"></i>
+                <h6>Keunggulan</h6>
+                <p>Rekam jejak kemenangan 98% dari ratusan kasus yang ditangani.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       SERVICES SECTION
+  ======================================== -->
+  <section id="services">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="section-badge"><span class="gold-line"></span> Layanan Kami</div>
+        <h2 class="section-title">Solusi Hukum<br />Yang Komprehensif</h2>
+        <div class="section-divider"></div>
+        <p class="lead-text mx-auto">Kami menyediakan layanan hukum pidana menyeluruh dengan pendekatan strategis dan profesional untuk melindungi hak-hak Anda.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-gavel"></i></div>
+            <h5>Konsultasi Hukum Pidana</h5>
+            <p>Konsultasi mendalam terkait kasus pidana Anda bersama pengacara berpengalaman, memberikan solusi strategis dan analisis hukum yang komprehensif.</p>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-6 col-lg-4 reveal" style="transition-delay:0.1s">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-landmark"></i></div>
+            <h5>Pendampingan Sidang</h5>
+            <p>Pendampingan penuh di setiap tahap persidangan, dari pra-sidang, sidang pertama hingga putusan akhir dengan strategi pembelaan terbaik.</p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-6 col-lg-4 reveal" style="transition-delay:0.2s">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-user-secret"></i></div>
+            <h5>Kasus Penipuan</h5>
+            <p>Penanganan kasus penipuan bisnis, investasi, perbankan, dan properti dengan investigasi mendalam dan strategi pembelaan berbasis bukti.</p>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col-md-6 col-lg-4 reveal" style="transition-delay:0.1s">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+            <h5>Cyber Crime</h5>
+            <p>Penanganan kasus kejahatan siber termasuk penipuan online, peretasan, penyebaran konten ilegal, dan perlindungan data pribadi.</p>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="col-md-6 col-lg-4 reveal" style="transition-delay:0.2s">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-pills"></i></div>
+            <h5>Kasus Narkotika</h5>
+            <p>Pembelaan kasus narkotika dan psikotropika dengan pendekatan hukum terkini, memaksimalkan hak klien sesuai peraturan yang berlaku.</p>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="col-md-6 col-lg-4 reveal" style="transition-delay:0.3s">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-hands-helping"></i></div>
+            <h5>Perlindungan Hak Tersangka</h5>
+            <p>Memastikan hak-hak fundamental tersangka terpenuhi sejak awal pemeriksaan, mencegah pelanggaran prosedur hukum acara pidana.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       TEAM SECTION
+  ======================================== -->
+  <section id="team">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="section-badge"><span class="gold-line"></span> Tim Kami</div>
+        <h2 class="section-title">Pengacara Berpengalaman<br />Yang Siap Membela Anda</h2>
+        <div class="section-divider"></div>
+        <p class="lead-text mx-auto">Tim pengacara kami terdiri dari para ahli hukum pidana dengan rekam jejak terbukti dalam menangani kasus-kasus kompleks.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Lawyer 1 -->
+        <div class="col-md-6 col-lg-3 reveal">
+          <div class="team-card">
+            <div class="team-img">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="Arief Wicaksono" />
+              <div class="team-overlay">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <div class="team-info">
+              <h5>Arief Wicaksono, S.H.</h5>
+              <div class="role">Senior Partner</div>
+              <p>Spesialis hukum pidana umum dengan 18 tahun pengalaman menangani kasus besar di pengadilan tinggi.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Lawyer 2 -->
+        <div class="col-md-6 col-lg-3 reveal" style="transition-delay:0.1s">
+          <div class="team-card">
+            <div class="team-img">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Dewi Kusuma" />
+              <div class="team-overlay">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <div class="team-info">
+              <h5>Dewi Kusuma, S.H., M.H.</h5>
+              <div class="role">Criminal Law Expert</div>
+              <p>Pakar hukum pidana khusus kasus cyber crime dan penipuan keuangan dengan sertifikasi internasional.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Lawyer 3 -->
+        <div class="col-md-6 col-lg-3 reveal" style="transition-delay:0.2s">
+          <div class="team-card">
+            <div class="team-img">
+              <img src="https://media.istockphoto.com/id/1396456823/photo/african-american-male-lawyer-opens-a-new-firm-in-the-city.jpg?s=612x612&w=0&k=20&c=T-2Xfc2Q8sNxUej66pfX1P4iuyN3viiiFQI3rmfqXSI=" alt="Budi Santoso" />
+              <div class="team-overlay">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <div class="team-info">
+              <h5>Budi Santoso, S.H.</h5>
+              <div class="role">Narkotika Specialist</div>
+              <p>Berpengalaman 12 tahun menangani kasus narkotika dan psikotropika di berbagai tingkat pengadilan.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Lawyer 4 -->
+        <div class="col-md-6 col-lg-3 reveal" style="transition-delay:0.3s">
+          <div class="team-card">
+            <div class="team-img">
+              <img src="https://www.shutterstock.com/image-photo/portrait-lawyer-black-woman-office-600nw-2575432225.jpg" alt="Ratna Sari" />
+              <div class="team-overlay">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+            <div class="team-info">
+              <h5>Ratna Sari, S.H., M.Kn.</h5>
+              <div class="role">Associate Partner</div>
+              <p>Spesialis perlindungan hak tersangka dan pendampingan hukum untuk kasus-kasus korupsi dan tipikor.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       TESTIMONIALS SECTION
+  ======================================== -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="section-badge"><span class="gold-line"></span> Testimoni</div>
+        <h2 class="section-title">Apa Kata Klien Kami</h2>
+        <div class="section-divider"></div>
+        <p class="lead-text mx-auto">Kepercayaan klien adalah kebanggaan kami. Berikut pengalaman mereka bersama Justice Law.</p>
+      </div>
+
+      <div class="testimonial-track-wrap reveal">
+        <div class="testimonial-track" id="testiTrack">
+          <!-- Testi 1 -->
+          <div class="testi-card">
+            <div class="testi-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="testi-text">Justice Law benar-benar luar biasa. Kasus saya yang tampak rumit diselesaikan dengan sangat profesional. Tim pengacaranya sangat responsif dan transparan dalam setiap langkah.</p>
+            <div class="testi-author">
+              <img class="testi-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Rudi" />
+              <div>
+                <div class="testi-name">Rudi Hartanto</div>
+                <div class="testi-role">Pengusaha, Jakarta</div>
+              </div>
+            </div>
+          </div>
+          <!-- Testi 2 -->
+          <div class="testi-card">
+            <div class="testi-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="testi-text">Saya merasa sangat terbantu dengan penjelasan hukum yang jelas dari tim Justice Law. Mereka tidak hanya membela, tetapi juga mendidik saya tentang hak-hak saya sebagai tersangka.</p>
+            <div class="testi-author">
+              <img class="testi-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Sinta" />
+              <div>
+                <div class="testi-name">Sinta Pramudya</div>
+                <div class="testi-role">Karyawan Swasta, Bandung</div>
+              </div>
+            </div>
+          </div>
+          <!-- Testi 3 -->
+          <div class="testi-card">
+            <div class="testi-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="testi-text">Strategi pembelaan yang disiapkan sangat matang dan terstruktur. Hasilnya melebihi ekspektasi saya. Justice Law adalah pilihan terbaik untuk kasus-kasus hukum pidana yang serius.</p>
+            <div class="testi-author">
+              <img class="testi-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Hendra" />
+              <div>
+                <div class="testi-name">Hendra Wijaya</div>
+                <div class="testi-role">Direktur PT, Surabaya</div>
+              </div>
+            </div>
+          </div>
+          <!-- Testi 4 -->
+          <div class="testi-card">
+            <div class="testi-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="testi-text">Tim yang sangat profesional dan penuh dedikasi. Mereka benar-benar memahami kondisi kliennya dan memberikan solusi terbaik dalam waktu yang efisien. Sangat merekomendasikan!</p>
+            <div class="testi-author">
+              <img class="testi-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="Lina" />
+              <div>
+                <div class="testi-name">Lina Oktavia</div>
+                <div class="testi-role">Pengusaha Kuliner, Yogyakarta</div>
+              </div>
+            </div>
+          </div>
+          <!-- Testi 5 -->
+          <div class="testi-card">
+            <div class="testi-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="testi-text">Penanganan kasus cyber crime saya ditangani dengan sangat ahli. Pak Arief dan tim memiliki pemahaman mendalam tentang hukum digital yang masih sangat baru di Indonesia.</p>
+            <div class="testi-author">
+              <img class="testi-avatar" src="https://images.unsplash.com/photo-1463453091185-61582044d556?w=100&q=80" alt="Fajar" />
+              <div>
+                <div class="testi-name">Fajar Nugroho</div>
+                <div class="testi-role">Developer IT, Semarang</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="testi-controls">
+        <button class="testi-btn" id="testiPrev"><i class="fas fa-chevron-left"></i></button>
+        <button class="testi-btn" id="testiNext"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       CONTACT SECTION
+  ======================================== -->
+  <section id="contact">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="section-badge"><span class="gold-line"></span> Hubungi Kami</div>
+        <h2 class="section-title">Konsultasi Gratis<br />Hari Ini</h2>
+        <div class="section-divider"></div>
+        <p class="lead-text mx-auto">Jangan hadapi masalah hukum sendirian. Tim ahli kami siap membantu Anda menemukan solusi terbaik.</p>
+      </div>
+
+      <div class="row g-5">
+        <!-- Info -->
+        <div class="col-lg-4 reveal-left">
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h6>Alamat Kantor</h6>
+              <p>Jl. Sudirman No. 88, Lantai 12<br />Jakarta Pusat, 10220</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h6>Email Bisnis</h6>
+              <p>info@justicelaw.co.id<br />konsultasi@justicelaw.co.id</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <div>
+              <h6>Telepon</h6>
+              <p>+62 21 5555-8888<br />+62 812-3456-7890</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <h6>Jam Operasional</h6>
+              <p>Senin – Jumat: 08.00 – 17.00<br />Sabtu: 09.00 – 13.00</p>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="footer-social mt-2">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="col-lg-8 reveal-right">
+          <div class="form-wrap">
+            <!-- Web3Forms: replace YOUR_ACCESS_KEY with your real key -->
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+
+              <!-- Web3Forms access key -->
+              <input type="hidden" name="access_key" value="a3911b46-bb70-4171-ad74-1529792dde3d" />
+              <!-- Honeypot anti-spam -->
+              <input type="checkbox" name="botcheck" style="display:none;" />
+              <!-- Redirect (optional) -->
+              <input type="hidden" name="redirect" value="false" />
+              <input type="hidden" name="subject" value="Konsultasi Hukum Baru – Justice Law" />
+
+              <div class="row g-3">
+                <div class="col-md-6 form-group">
+                  <label class="form-label">Nama Lengkap *</label>
+                  <input type="text" name="name" class="form-control" placeholder="Masukkan nama lengkap Anda" required />
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="form-label">Alamat Email *</label>
+                  <input type="email" name="email" class="form-control" placeholder="email@contoh.com" required />
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="form-label">Nomor Telepon *</label>
+                  <input type="tel" name="phone" class="form-control" placeholder="+62 812-xxxx-xxxx" required />
+                </div>
+                <div class="col-md-6 form-group">
+                  <label class="form-label">Jenis Kasus</label>
+                  <select name="case_type" class="form-select">
+                    <option value="" disabled selected>Pilih jenis kasus</option>
+                    <option>Konsultasi Umum</option>
+                    <option>Pendampingan Sidang</option>
+                    <option>Kasus Penipuan</option>
+                    <option>Cyber Crime</option>
+                    <option>Kasus Narkotika</option>
+                    <option>Perlindungan Hak Tersangka</option>
+                    <option>Lainnya</option>
+                  </select>
+                </div>
+                <div class="col-12 form-group">
+                  <label class="form-label">Pesan / Deskripsi Kasus *</label>
+                  <textarea name="message" class="form-control" rows="5" placeholder="Ceritakan secara singkat permasalahan hukum yang Anda hadapi..." required></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" id="submitBtn" class="btn btn-gold w-100 py-3">
+                    <span id="btnText">Kirim Pesan</span>
+                    <span id="btnLoader" style="display:none;">
+                      <span class="spinner-border spinner-border-sm me-2"></span> Mengirim...
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Success alert -->
+            <div id="successAlert">
+              <i class="fas fa-check-circle me-2"></i>
+              Pesan Anda berhasil terkirim! Tim kami akan menghubungi Anda dalam 1×24 jam.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Maps -->
+      <div class="map-wrap mt-5 reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613!3d-6.2087634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sJl.%20Jend.%20Sudirman%2C%20Karet%20Semanggi%2C%20Jakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+          width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       FOOTER
+  ======================================== -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <!-- Brand -->
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-brand">JUSTICE <span>LAW</span></div>
+          <p class="footer-desc mb-4">Firma konsultasi hukum pidana terpercaya. Membela hak Anda dengan integritas, profesionalisme, dan dedikasi penuh.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-2 col-md-6">
+          <div class="footer-title">Quick Links</div>
+          <a class="footer-link" href="#home">Home</a>
+          <a class="footer-link" href="#about">About</a>
+          <a class="footer-link" href="#services">Services</a>
+          <a class="footer-link" href="#team">Team</a>
+          <a class="footer-link" href="#testimonials">Testimonials</a>
+          <a class="footer-link" href="#contact">Contact</a>
+        </div>
+
+        <!-- Services -->
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-title">Layanan</div>
+          <a class="footer-link" href="#services">Konsultasi Pidana</a>
+          <a class="footer-link" href="#services">Pendampingan Sidang</a>
+          <a class="footer-link" href="#services">Kasus Penipuan</a>
+          <a class="footer-link" href="#services">Cyber Crime</a>
+          <a class="footer-link" href="#services">Kasus Narkotika</a>
+          <a class="footer-link" href="#services">Hak Tersangka</a>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-title">Kontak</div>
+          <p style="font-size:0.83rem; color: var(--grey); margin-bottom:8px;">
+            <i class="fas fa-map-marker-alt me-2 gold"></i> Jl. Sudirman No. 88, Jakarta Pusat
+          </p>
+          <p style="font-size:0.83rem; color: var(--grey); margin-bottom:8px;">
+            <i class="fas fa-phone me-2 gold"></i> +62 21 5555-8888
+          </p>
+          <p style="font-size:0.83rem; color: var(--grey); margin-bottom:8px;">
+            <i class="fas fa-envelope me-2 gold"></i> info@justicelaw.co.id
+          </p>
+          <p style="font-size:0.83rem; color: var(--grey); margin-bottom:8px;">
+            <i class="fas fa-clock me-2 gold"></i> Senin – Jumat: 08.00 – 17.00
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom -->
+      <div class="footer-bottom">
+        <span>© 2024 Justice Law. Seluruh hak cipta dilindungi.</span>
+        <span>Dibuat dengan <i class="fas fa-heart" style="color:var(--gold)"></i> untuk keadilan</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/6281234567890?text=Halo%20Justice%20Law%2C%20saya%20ingin%20konsultasi%20hukum." class="wa-float" target="_blank" title="Chat WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ============================================
+    // NAVBAR: transparent → solid on scroll
+    // ============================================
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ============================================
+    // SMOOTH SCROLL for nav links
+    // ============================================
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+          // Close mobile menu
+          const menu = document.getElementById('navMenu');
+          if (menu.classList.contains('show')) {
+            bootstrap.Collapse.getInstance(menu)?.hide();
+          }
+        }
+      });
+    });
+
+    // ============================================
+    // SCROLL REVEAL ANIMATION
+    // ============================================
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // ============================================
+    // ANIMATED COUNTER (stats)
+    // ============================================
+    const counters = document.querySelectorAll('.stat-number[data-target]');
+    let counted = false;
+    function runCounters() {
+      counters.forEach(counter => {
+        const target = parseInt(counter.dataset.target);
+        const duration = 1800;
+        const step = target / (duration / 16);
+        let current = 0;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            counter.textContent = target + (counter.dataset.target === '98' ? '%' : '+');
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current);
+          }
+        }, 16);
+      });
+    }
+    // Trigger once when hero stats visible
+    const statsEl = document.querySelector('.hero-stats');
+    if (statsEl) {
+      const statsObs = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !counted) {
+          counted = true;
+          runCounters();
+          statsObs.disconnect();
+        }
+      }, { threshold: 0.5 });
+      statsObs.observe(statsEl);
+    }
+
+    // ============================================
+    // TESTIMONIAL SLIDER
+    // ============================================
+    const track = document.getElementById('testiTrack');
+    const cards = track.querySelectorAll('.testi-card');
+    let currentIdx = 0;
+    let perView = window.innerWidth < 768 ? 1 : window.innerWidth < 992 ? 2 : 3;
+
+    function getCardWidth() {
+      return cards[0].offsetWidth + 28; // gap = 28px
+    }
+    function updateSlider() {
+      perView = window.innerWidth < 768 ? 1 : window.innerWidth < 992 ? 2 : 3;
+      const maxIdx = cards.length - perView;
+      if (currentIdx > maxIdx) currentIdx = maxIdx;
+      track.style.transform = `translateX(-${currentIdx * getCardWidth()}px)`;
+    }
+
+    document.getElementById('testiNext').addEventListener('click', () => {
+      const maxIdx = cards.length - perView;
+      currentIdx = currentIdx >= maxIdx ? 0 : currentIdx + 1;
+      updateSlider();
+    });
+    document.getElementById('testiPrev').addEventListener('click', () => {
+      const maxIdx = cards.length - perView;
+      currentIdx = currentIdx <= 0 ? maxIdx : currentIdx - 1;
+      updateSlider();
+    });
+    window.addEventListener('resize', updateSlider);
+
+    // Auto-slide every 4 seconds
+    setInterval(() => {
+      const maxIdx = cards.length - perView;
+      currentIdx = currentIdx >= maxIdx ? 0 : currentIdx + 1;
+      updateSlider();
+    }, 4000);
+
+    // ============================================
+    // CONTACT FORM — validation + Web3Forms submit
+    // ============================================
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+    const successAlert = document.getElementById('successAlert');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Basic validation
+      let valid = true;
+      form.querySelectorAll('[required]').forEach(field => {
+        field.classList.remove('is-invalid');
+        if (!field.value.trim()) {
+          field.classList.add('is-invalid');
+          valid = false;
+        }
+      });
+      // Email format
+      const emailField = form.querySelector('[name="email"]');
+      if (emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+        emailField.classList.add('is-invalid');
+        valid = false;
+      }
+      if (!valid) return;
+
+      // Loading state
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'inline';
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch(form.action, { method: 'POST', body: formData });
+        const data = await res.json();
+
+        if (data.success) {
+          successAlert.style.display = 'block';
+          form.reset();
+          setTimeout(() => { successAlert.style.display = 'none'; }, 6000);
+        } else {
+          alert('Terjadi kesalahan saat mengirim pesan. Silakan coba lagi atau hubungi kami langsung via WhatsApp.');
+        }
+      } catch (err) {
+        alert('Koneksi gagal. Pastikan Anda terhubung ke internet dan coba lagi.');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoader.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
